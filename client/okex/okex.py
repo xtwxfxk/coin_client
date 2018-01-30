@@ -90,7 +90,7 @@ class OkWebSocket(threading.Thread):
                 except websocket.WebSocketConnectionClosedException as e:
                     break
 
-            # ws.close()
+            ws.close()
 
         thread.start_new_thread(run, ())
 
@@ -110,8 +110,10 @@ class OkWebSocket(threading.Thread):
     def run(self):
         while not self.stopped():
             self.connection()
-            logger.info('Wait Reconnection...')
-            time.sleep(5)
+
+            if not self.stopped():
+                logger.info('Wait Reconnection...')
+                time.sleep(5)
 
     def put_channel(self):
 
