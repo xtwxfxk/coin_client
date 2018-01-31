@@ -109,11 +109,11 @@ class OkWebSocket(threading.Thread):
 
     def run(self):
         while not self.stopped():
+            logger.info('Connecting...')
+            time.sleep(5)
+
             self.connection()
 
-            if not self.stopped():
-                logger.info('Wait Reconnection...')
-                time.sleep(5)
 
     def put_channel(self):
 
@@ -123,7 +123,8 @@ class OkWebSocket(threading.Thread):
 
     def __getattr__(self, name):
         def wrapper(*args, **kwargs):
-
+            if name not in self.channels:
+                self.channels.append(name)
             self.queue.put(name)
 
         return wrapper
