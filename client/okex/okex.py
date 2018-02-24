@@ -109,10 +109,13 @@ class OkWebSocket(threading.Thread):
 
     def run(self):
         while not self.stopped():
-            logger.info('Connecting...')
-            time.sleep(5)
+            try:
+                logger.info('Connecting...')
+                time.sleep(5)
 
-            self.connection()
+                self.connection()
+            except Exception as e:
+                logger.error(e)
 
 
     def put_channel(self):
@@ -120,6 +123,17 @@ class OkWebSocket(threading.Thread):
         for channel in self.channels:
             self.queue.put(channel)
 
+
+    def loop(self):
+        self.start()
+
+        while not self.stopped():
+            try:
+                time.sleep(1)
+            except KeyboardInterrupt:
+                logger.info('Wait Stop...')
+                self.stop()
+                self.join()
 
     def __getattr__(self, name):
         def wrapper(*args, **kwargs):
