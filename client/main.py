@@ -13,7 +13,7 @@ logger = logging.getLogger('verbose')
 
 if __name__ == '__main__':
 
-    ok = OkWebSocket(keep_data_root='/home/left5/datas/coin', channels=['ok_sub_spot_eth_usdt_kline_1min', 'ok_sub_spot_btc_usdt_kline_1min', 'ok_sub_spot_eth_usdt_deals'])
+    ok = OkWebSocket(keep_data_root='/home/left5/datas/coin', channels=['ok_sub_spot_eth_usdt_kline_1min', 'ok_sub_spot_btc_usdt_kline_1min', 'ok_sub_spot_eth_usdt_deals', 'ok_sub_spot_eos_usdt_kline_1min'])
     ok.loop()
 
     # ok.daemon = True

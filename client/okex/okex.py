@@ -59,7 +59,7 @@ class OkWebSocket(threading.Thread):
                     with open(file_path, 'a+') as f:
                         _d = json.dumps(data)[1:-1]
                         f.write('%s\n' % _d)
-                        logger.info('write data: %s' % _d)
+                        logger.info('%s: %s' % (' '.join(m[0]['channel'].split('_')[3: 5]), _d))
 
         except Exception as e:
             logger.error(e)
